@@ -1,4 +1,4 @@
-# Simple Conflig-Driven SAT Solver ![master build status](https://travis-ci.org/kunalarya/simple-sat-solver.svg?branch=master)
+# Simple Conflig-Driven SAT Solver [![Build Status](https://travis-ci.org/kunalarya/simple-sat-solver.svg?branch=master)](https://travis-ci.org/kunalarya/simple-sat-solver)
 
 
 This is a very rudimentary start to a SAT solver tested against
