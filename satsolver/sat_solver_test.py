@@ -1,7 +1,7 @@
 import pytest
 
-from sat_solver import Instance, bcp, solve
-from sat_solver import IGraph
+from satsolver.sat_solver import Instance, bcp, solve
+from satsolver.sat_solver import IGraph
 
 # -- is_unit --
 

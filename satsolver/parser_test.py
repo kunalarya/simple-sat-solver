@@ -1,7 +1,7 @@
 from __future__ import print_function, absolute_import
 from cStringIO import StringIO
 
-from parser import CNFParser
+from satsolver.parser import CNFParser
 
 
 def test_simple_cnf_parsing():

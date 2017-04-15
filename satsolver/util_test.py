@@ -1,4 +1,4 @@
-from util import Result, Failure, Success
+from satsolver.util import Result, Failure, Success
 
 
 def test_result():

@@ -4,8 +4,8 @@ import argparse
 import logging
 from collections import namedtuple
 
-import parser
-from util import Success, Failure
+import satsolver.parser
+from satsolver.util import Success, Failure
 
 
 class Instance(object):
