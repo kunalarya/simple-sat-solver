@@ -1,7 +1,7 @@
 import pytest
 
 from satsolver.state import Instance
-from satsolver.sat_solver import Solver, ImplicationGraph
+from satsolver.solver import Solver, ImplicationGraph
 
 # -- is_unit --
 
