@@ -1,7 +1,7 @@
 import pytest
 
-from satsolver.sat_solver import Instance, bcp, solve
-from satsolver.sat_solver import IGraph
+from satsolver.state import Instance
+from satsolver.sat_solver import Solver, ImplicationGraph
 
 # -- is_unit --
 
@@ -92,7 +92,7 @@ def test_bcp_simplest():
     inst = Instance(var_count=2, clauses=clauses)
     # if var 1 is 1, then var 2 must be 1
     inst.set_lit(1, 0)
-    bcp(inst, 0, IGraph())
+    Solver(inst).bcp(0, ImplicationGraph())
     assert inst.asgs[2] == 1
 
 
@@ -101,7 +101,7 @@ def test_bcp_2cascade():
     clauses = [[1, 2], [-2, 3]]
     inst = Instance(var_count=3, clauses=clauses)
     inst.set_lit(1, 0)
-    bcp(inst, 0, IGraph())
+    Solver(inst).bcp(0, ImplicationGraph())
     assert inst.asgs[2] == 1
     assert inst.asgs[3] == 1
 
@@ -113,7 +113,7 @@ def test_bcp_3cascade():
     inst = Instance(var_count=6, clauses=clauses)
     inst.set_lit(1, 0)
     inst.set_lits([4, 5], 0)
-    bcp(inst, 0, IGraph())
+    Solver(inst).bcp(0, ImplicationGraph())
     assert inst.asgs[2] == 1
     assert inst.asgs[3] == 1
     assert inst.asgs[6] == 0
@@ -123,7 +123,7 @@ def test_bcp_detect_conflict():
     inst = Instance(var_count=6, clauses=clauses)
     inst.set_lit(1, 0) # will imply 2 == 1
     inst.set_lit(3, 0) # now the second clause is UNSAT
-    r = bcp(inst, 0, IGraph())
+    r = Solver(inst).bcp(0, ImplicationGraph())
     assert not r.success
 
 def test_bcp_detect_unsat():
@@ -131,7 +131,7 @@ def test_bcp_detect_unsat():
     #
     inst = Instance(var_count=6, clauses=clauses)
     inst.set_lit(1, 0) # will imply 2 == 1
-    r = bcp(inst, 0, IGraph())
+    r = Solver(inst).bcp(0, ImplicationGraph())
     assert not r.success
 
 # -------
@@ -140,8 +140,8 @@ def test_solver():
     # simple sat problem:
     clauses = [[1, -2], [3, -4], [1, 4]]
     recipe = [(2, 0), (1, 0), (3, 0), (4, 0)]
-    inst = Instance(var_count=4, clauses=clauses, recipe=recipe)
-    solve(inst)
+    inst = Instance(var_count=4, clauses=clauses)
+    Solver(inst, recipe=recipe).solve()
     # TODO: Add some assertions.
 
 
@@ -149,8 +149,8 @@ def test_bcp_igraph():
     clauses = [[1, 2], [1, 3, 7], [-2, -3, 4], [-4, 5, 8], [-4, 6, 9],
                [-5, -6]]
     recipe = [(7, 0), (8, 0), (9, 0), (4, 0)]
-    inst = Instance(var_count=9, clauses=clauses, recipe=recipe)
-    solve(inst)
+    inst = Instance(var_count=9, clauses=clauses)
+    Solver(inst, recipe=recipe).solve()
     # TODO: Add some assertions.
 
 
